@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE DUNGEON 18 — تدريب رياضي عن بُعد</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+:root {
+  --black: #0a0a0a;
+  --black-2: #141414;
+  --black-3: #1c1c1c;
+  --gold: #f5c518;
+  --gold-dim: #b9941a;
+  --ember: #c0392b;
+  --grey: #8a8a8a;
+  --line: #2a2a2a;
+  --radius: 10px;
+  --font-display: 'Oswald', 'Tajawal', sans-serif;
+  --font-body: 'Tajawal', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--black); color: #e8e8e8; direction: rtl; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* Plate-stack signature divider */
+.plate-divider { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 28px; }
+.plate-divider span { display: block; border-radius: 50%; border: 3px solid var(--gold); }
+.plate-divider span:nth-child(1) { width: 28px; height: 28px; }
+.plate-divider span:nth-child(2) { width: 18px; height: 18px; border-color: var(--ember); }
+.plate-divider span:nth-child(3) { width: 10px; height: 10px; background: var(--gold); border-color: var(--gold); }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,10,10,0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; flex-wrap: wrap; gap: 12px; }
+.logo { font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+.logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
+.nav-links a { font-size: 14px; color: var(--grey); font-weight: 500; transition: color 0.2s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+.nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-cta { background: var(--gold); color: var(--black); font-weight: 700; font-size: 13px; padding: 10px 22px; border-radius: var(--radius); font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; border: none; cursor: pointer; transition: transform 0.15s, background 0.2s; }
+.nav-cta:hover { background: #fff; transform: translateY(-1px); }
+
+/* Hero */
+.hero { padding: 90px 0 70px; text-align: center; position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(245,197,24,0.035) 0 2px, transparent 2px 40px); pointer-events: none; }
+.eyebrow { font-family: var(--font-display); font-size: 12px; letter-spacing: 6px; color: var(--ember); text-transform: uppercase; margin-bottom: 16px; position: relative; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(36px, 7vw, 64px); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #fff; margin-bottom: 18px; position: relative; }
+.hero h1 .accent { color: var(--gold); }
+.hero p { max-width: 560px; margin: 0 auto 32px; color: var(--grey); font-size: 16px; position: relative; }
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+.btn { display: inline-block; font-family: var(--font-display); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 14px; padding: 14px 32px; border-radius: var(--radius); cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+.btn-primary { background: var(--gold); color: var(--black); }
+.btn-primary:hover { background: #fff; }
+.btn-outline { border-color: var(--gold); color: var(--gold); background: transparent; }
+.btn-outline:hover { background: var(--gold); color: var(--black); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+.stat { padding: 28px 16px; text-align: center; border-left: 1px solid var(--line); }
+.stat:last-child { border-left: none; }
+.stat-num { font-family: var(--font-display); font-size: clamp(22px, 4vw, 34px); font-weight: 700; color: var(--gold); }
+.stat-label { font-size: 12px; color: var(--grey); margin-top: 4px; }
+
+/* Sections */
+.section { padding: 72px 0; }
+.section.alt { background: var(--black-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section-head { text-align: center; margin-bottom: 48px; }
+.section-head .eyebrow { margin-bottom: 10px; }
+.section-head h2 { font-family: var(--font-display); font-size: clamp(26px, 5vw, 40px); text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 14px; }
+.section-head p { color: var(--grey); max-width: 520px; margin: 0 auto; font-size: 15px; }
+
+/* Cards */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.card { background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 24px; transition: border-color 0.2s, transform 0.2s; }
+.card:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
+.card-icon { font-size: 28px; margin-bottom: 16px; }
+.card h3 { font-family: var(--font-display); font-size: 18px; letter-spacing: 0.5px; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; }
+.card p { color: var(--grey); font-size: 14px; }
+
+/* Program cards */
+.program-card { background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; }
+.program-card:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
+.program-head { background: var(--black); border-bottom: 2px solid var(--gold); padding: 28px 20px; text-align: center; position: relative; }
+.program-level { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--black); font-family: var(--font-display); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.program-rep { font-family: var(--font-display); font-size: 40px; font-weight: 700; color: var(--gold); }
+.program-body { padding: 22px 20px; flex: 1; display: flex; flex-direction: column; }
+.program-body h3 { font-family: var(--font-display); color: #fff; font-size: 18px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.program-meta { font-size: 13px; color: var(--grey); margin-bottom: 14px; }
+.program-list { list-style: none; font-size: 13px; color: #ccc; margin-bottom: 22px; flex: 1; }
+.program-list li { padding: 6px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+.program-list li:last-child { border-bottom: none; }
+.program-list .week { color: var(--gold); font-family: var(--font-display); font-size: 12px; }
+
+/* Nutrition calculator */
+.calc-card { background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; max-width: 560px; margin: 0 auto; }
+.field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.field label { display: block; font-size: 13px; color: var(--grey); margin-bottom: 6px; }
+.field input, .field select { width: 100%; background: var(--black); border: 1px solid var(--line); border-radius: 6px; padding: 11px 12px; color: #fff; font-family: var(--font-body); font-size: 14px; }
+.field input:focus, .field select:focus { border-color: var(--gold); }
+.calc-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
+.result-box { background: var(--black); border: 1px solid var(--line); border-radius: 8px; padding: 14px 8px; text-align: center; }
+.result-num { font-family: var(--font-display); font-size: 22px; color: var(--gold); font-weight: 700; }
+.result-label { font-size: 11px; color: var(--grey); margin-top: 2px; }
+
+/* Tips */
+.tips { margin-top: 36px; display: grid; gap: 12px; }
+.tip { display: flex; gap: 14px; align-items: flex-start; background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.tip-num { font-family: var(--font-display); color: var(--gold); font-weight: 700; font-size: 18px; flex-shrink: 0; }
+.tip p { font-size: 14px; color: #ccc; }
+.tip strong { color: #fff; }
+
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
+@media (max-width: 800px) { .contact-grid { grid-template-columns: 1fr; } }
+.form-card { background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
+.form-card .field { margin-bottom: 18px; }
+.form-card textarea { width: 100%; background: var(--black); border: 1px solid var(--line); border-radius: 6px; padding: 11px 12px; color: #fff; font-family: var(--font-body); font-size: 14px; resize: vertical; min-height: 110px; }
+.form-card textarea:focus { border-color: var(--gold); }
+.form-note { font-size: 12px; color: var(--grey); margin-top: 14px; }
+.info-list { display: grid; gap: 18px; }
+.info-item { background: var(--black-3); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.info-item h4 { font-family: var(--font-display); color: var(--gold); font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.info-item p { font-size: 14px; color: #ccc; }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--line); padding: 36px 0; text-align: center; }
+.site-footer p { font-size: 13px; color: var(--grey); }
+.site-footer span { color: var(--gold); }
+.footer-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+.footer-links a { font-size: 13px; color: var(--grey); }
+.footer-links a:hover { color: var(--gold); }
+
+@media (max-width: 700px) {
+  .nav-links { order: 3; width: 100%; justify-content: space-between; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-left: none; }
+  .stat:nth-child(odd) { border-left: 1px solid var(--line); }
+  .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid var(--line); }
+  .calc-results { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card, .program-card, .nav-cta { transition: none; }
+}
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#home" class="logo">THE DUNGEON <span>18</span></a>
+      <nav class="nav-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#programs">البرامج</a>
+        <a href="#nutrition">التغذية</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+      <a href="#contact" class="nav-cta">ابدأ الآن</a>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="eyebrow">تدريب عن بُعد · بدون أعذار</div>
+      <h1>جسمك <span class="accent">من غرفتك</span><br>إلى أفضل نسخة منك</h1>
+      <p>برنامج تدريبي مخصص، خطة تغذية مدروسة، ومدرب يتابع تقدمك خطوة بخطوة — كل ذلك من هاتفك.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">احجز استشارة مجانية</a>
+        <a href="#programs" class="btn btn-outline">تصفّح البرامج</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container" style="display:contents">
+      <div class="stat"><div class="stat-num">+5,000</div><div class="stat-label">متدرب نشط</div></div>
+      <div class="stat"><div class="stat-num">150+</div><div class="stat-label">تمرين موثّق</div></div>
+      <div class="stat"><div class="stat-num">98٪</div><div class="stat-label">نسبة الرضا</div></div>
+      <div class="stat"><div class="stat-num">30+</div><div class="stat-label">برنامج تدريبي</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">كيف يعمل</div>
+        <h2>كل ما تحتاجه، في مكان واحد</h2>
+        <p>مصمم خصيصاً لمن يتدرب من المنزل أو نادٍ بدون مدرب شخصي حاضر.</p>
+      </div>
+      <div class="plate-divider"><span></span><span></span><span></span></div>
+      <div class="grid-3">
+        <div class="card"><div class="card-icon">📋</div><h3>برنامج مخصص</h3><p>خطة أسبوعية مبنية على هدفك (تنشيف، ضخامة، أو لياقة عامة) ومستواك الحالي.</p></div>
+        <div class="card"><div class="card-icon">🎥</div><h3>شروحات بالفيديو</h3><p>كل تمرين موضّح بالحركة الصحيحة وأخطاء يجب تجنبها، لتتدرب بأمان.</p></div>
+        <div class="card"><div class="card-icon">🥗</div><h3>تغذية مدروسة</h3><p>حاسبة سعرات وماكروز تعطيك أرقاماً واقعية تتماشى مع هدفك ووزنك.</p></div>
+        <div class="card"><div class="card-icon">📈</div><h3>تتبّع التقدم</h3><p>سجّل وزنك وقياساتك أسبوعياً وشاهد تطورك بالأرقام لا بالتخمين.</p></div>
+        <div class="card"><div class="card-icon">💬</div><h3>متابعة مباشرة</h3><p>تواصل مباشر مع مدربك لتعديل البرنامج حسب أدائك الفعلي.</p></div>
+        <div class="card"><div class="card-icon">🏆</div><h3>التزام واضح</h3><p>جدول أسابيع محدد بأهداف قابلة للقياس، لا برامج عشوائية بلا نهاية.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="section alt" id="programs">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">اختر مستواك</div>
+        <h2>برامج تدريبية لكل هدف</h2>
+        <p>كل برنامج مبني على أسابيع تدريبية محددة، بأهداف واضحة قابلة للقياس.</p>
+      </div>
+      <div class="grid-3">
+        <div class="program-card">
+          <div class="program-head"><span class="program-level">مبتدئ</span><div class="program-rep">01</div></div>
+          <div class="program-body">
+            <h3>برنامج الأساسيات</h3>
+            <p class="program-meta">8 أسابيع · 3 أيام في الأسبوع</p>
+            <ul class="program-list">
+              <li><span>الأسبوع 1-2</span><span class="week">تعلّم الحركات الأساسية</span></li>
+              <li><span>الأسبوع 3-5</span><span class="week">بناء القاعدة العضلية</span></li>
+              <li><span>الأسبوع 6-8</span><span class="week">زيادة الأوزان تدريجياً</span></li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="text-align:center">اشترك في البرنامج</a>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="program-head"><span class="program-level">متوسط</span><div class="program-rep">02</div></div>
+          <div class="program-body">
+            <h3>بناء الكتلة العضلية</h3>
+            <p class="program-meta">12 أسبوع · 4 أيام في الأسبوع</p>
+            <ul class="program-list">
+              <li><span>الأسبوع 1-4</span><span class="week">تدريب تضخيمي بحجم متوسط</span></li>
+              <li><span>الأسبوع 5-8</span><span class="week">زيادة الحجم التدريبي</span></li>
+              <li><span>الأسبوع 9-12</span><span class="week">تكثيف وتحميل تدريجي</span></li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="text-align:center">اشترك في البرنامج</a>
+          </div>
+        </div>
+        <div class="program-card">
+          <div class="program-head"><span class="program-level">متقدم</span><div class="program-rep">03</div></div>
+          <div class="program-body">
+            <h3>التحدي المتقدم</h3>
+            <p class="program-meta">16 أسبوع · 5 أيام في الأسبوع</p>
+            <ul class="program-list">
+              <li><span>الأسبوع 1-5</span><span class="week">قوة قصوى وتحميل ثقيل</span></li>
+              <li><span>الأسبوع 6-11</span><span class="week">تضخيم بكثافة عالية</span></li>
+              <li><span>الأسبوع 12-16</span><span class="week">تنشيف وتحديد العضلات</span></li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="text-align:center">اشترك في البرنامج</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUTRITION -->
+  <section class="section" id="nutrition">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">الأرقام لا تكذب</div>
+        <h2>احسب سعراتك اليومية</h2>
+        <p>أدخل بياناتك للحصول على سعراتك الحرارية وتوزيع البروتين والكارب والدهون المناسب لهدفك.</p>
+      </div>
+      <div class="calc-card">
+        <div class="field-row">
+          <div class="field"><label for="weight">الوزن (كغ)</label><input type="number" id="weight" placeholder="مثال: 75" min="30" max="250"></div>
+          <div class="field"><label for="height">الطول (سم)</label><input type="number" id="height" placeholder="مثال: 178" min="120" max="230"></div>
+          <div class="field"><label for="age">العمر</label><input type="number" id="age" placeholder="مثال: 24" min="14" max="80"></div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="gender">الجنس</label>
+            <select id="gender"><option value="male">ذكر</option><option value="female">أنثى</option></select>
+          </div>
+          <div class="field">
+            <label for="activity">مستوى النشاط</label>
+            <select id="activity">
+              <option value="1.2">قليل الحركة (عمل مكتبي)</option>
+              <option value="1.375">نشاط خفيف (1-3 أيام/أسبوع)</option>
+              <option value="1.55" selected>نشاط متوسط (3-5 أيام/أسبوع)</option>
+              <option value="1.725">نشاط عالي (6-7 أيام/أسبوع)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="goal">الهدف</label>
+            <select id="goal">
+              <option value="cut">تنشيف (خسارة دهون)</option>
+              <option value="maintain">المحافظة على الوزن</option>
+              <option value="bulk">ضخامة (زيادة كتلة)</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="calcBtn" style="width:100%">احسب الآن</button>
+        <div class="calc-results" id="results" style="display:none">
+          <div class="result-box"><div class="result-num" id="resCalories">-</div><div class="result-label">سعرة / يوم</div></div>
+          <div class="result-box"><div class="result-num" id="resProtein">-</div><div class="result-label">بروتين (g)</div></div>
+          <div class="result-box"><div class="result-num" id="resCarbs">-</div><div class="result-label">كارب (g)</div></div>
+          <div class="result-box"><div class="result-num" id="resFat">-</div><div class="result-label">دهون (g)</div></div>
+        </div>
+        <p class="form-note" id="calcNote" style="display:none">هذه أرقام تقديرية بناءً على معادلة Mifflin-St Jeor، وهي نقطة انطلاق جيدة — يمكن تعديلها مع مدربك حسب استجابة جسمك.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">أساسيات</div>
+        <h2>نصائح تغذية لا غنى عنها</h2>
+      </div>
+      <div class="tips">
+        <div class="tip"><div class="tip-num">01</div><p><strong>البروتين أولاً:</strong> وزّع كمية البروتين على 3-4 وجبات بدل تركيزها في وجبة واحدة، لتحفيز بناء العضلات بشكل مستمر.</p></div>
+        <div class="tip"><div class="tip-num">02</div><p><strong>الماء قبل كل شيء:</strong> اشرب ما لا يقل عن 2.5 لتر يومياً، خصوصاً في أيام التدريب.</p></div>
+        <div class="tip"><div class="tip-num">03</div><p><strong>المكملات ليست أساسية:</strong> الواي بروتين والكرياتين مفيدان، لكنهما يكمّلان نظاماً غذائياً جيداً ولا يعوّضان عنه.</p></div>
+        <div class="tip"><div class="tip-num">04</div><p><strong>الاتساق أهم من الدقة:</strong> الالتزام بالأرقام بنسبة 90٪ لمدة شهور أفضل من دقة 100٪ لأسبوع واحد.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">الخطوة الأولى</div>
+        <h2>احجز استشارتك المجانية</h2>
+        <p>أخبرنا عن هدفك ومستواك، وسنتواصل معك لتحديد البرنامج الأنسب.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="form-card">
+          <!-- هذا النموذج يفتح برنامج البريد لديك مباشرة، بدون أي إعداد إضافي -->
+          <form id="contactForm" onsubmit="sendMail(event)">
+            <div class="field"><label for="name">الاسم الكامل</label><input type="text" id="name" required placeholder="اسمك"></div>
+            <div class="field"><label for="email">البريد الإلكتروني</label><input type="email" id="email" required placeholder="example@email.com"></div>
+            <div class="field">
+              <label for="goal-select">هدفك الرئيسي</label>
+              <select id="goal-select">
+                <option value="تنشيف">تنشيف (خسارة دهون)</option>
+                <option value="ضخامة">بناء عضلات (ضخامة)</option>
+                <option value="لياقة عامة">لياقة عامة وصحة</option>
+                <option value="أخرى">أخرى</option>
+              </select>
+            </div>
+            <div class="field"><label for="message">رسالتك</label><textarea id="message" placeholder="أخبرنا عن مستواك الحالي، أي إصابات سابقة، والأيام التي يمكنك التدريب فيها..."></textarea></div>
+            <button type="submit" class="btn btn-primary" style="width:100%">إرسال الطلب</button>
+          </form>
+          <p class="form-note">عند الضغط على "إرسال الطلب" سيُفتح برنامج البريد الإلكتروني على جهازك مع رسالة جاهزة لإرسالها إلينا.</p>
+        </div>
+        <div class="info-list">
+          <div class="info-item"><h4>البريد الإلكتروني</h4><p>contact@dungeon18.com</p></div>
+          <div class="info-item"><h4>ساعات الرد</h4><p>كل يوم من 9 صباحاً حتى 9 مساءً (توقيت الجزائر)</p></div>
+          <div class="info-item"><h4>التدريب عن بُعد</h4><p>جميع البرامج والمتابعة تتم عبر الإنترنت، بحيث يمكنك التدرب من المنزل أو أي نادٍ متوفر لديك.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#programs">البرامج</a>
+        <a href="#nutrition">التغذية</a>
+        <a href="#contact">تواصل معنا</a>
+      </div>
+      <p>© 2026 <span>THE DUNGEON 18</span> — رحلتك نحو جسمك المثالي تبدأ هنا</p>
+    </div>
+  </footer>
+
+<script>
+// حاسبة السعرات والماكروز
+document.getElementById('calcBtn').addEventListener('click', function () {
+  var weight = parseFloat(document.getElementById('weight').value);
+  var height = parseFloat(document.getElementById('height').value);
+  var age = parseFloat(document.getElementById('age').value);
+  var gender = document.getElementById('gender').value;
+  var activity = parseFloat(document.getElementById('activity').value);
+  var goal = document.getElementById('goal').value;
+
+  if (!weight || !height || !age) {
+    alert('من فضلك أدخل الوزن والطول والعمر بشكل صحيح.');
+    return;
+  }
+
+  var bmr = gender === 'male'
+    ? (10 * weight + 6.25 * height - 5 * age + 5)
+    : (10 * weight + 6.25 * height - 5 * age - 161);
+
+  var tdee = bmr * activity;
+  var calories = goal === 'cut' ? tdee - 450 : goal === 'bulk' ? tdee + 300 : tdee;
+  calories = Math.round(calories);
+
+  var protein = Math.round(weight * 2.0);
+  var proteinCals = protein * 4;
+  var fat = Math.round((calories * 0.25) / 9);
+  var fatCals = fat * 9;
+  var carbs = Math.max(0, Math.round((calories - proteinCals - fatCals) / 4));
+
+  document.getElementById('resCalories').textContent = calories.toLocaleString('en-US');
+  document.getElementById('resProtein').textContent = protein;
+  document.getElementById('resCarbs').textContent = carbs;
+  document.getElementById('resFat').textContent = fat;
+  document.getElementById('results').style.display = 'grid';
+  document.getElementById('calcNote').style.display = 'block';
+});
+
+// نموذج التواصل عبر mailto (بدون أي إعداد خارجي)
+function sendMail(e) {
+  e.preventDefault();
+  var name = document.getElementById('name').value;
+  var email = document.getElementById('email').value;
+  var goal = document.getElementById('goal-select').value;
+  var message = document.getElementById('message').value;
+
+  var subject = 'طلب استشارة من ' + name;
+  var body = 'الاسم: ' + name + '\nالبريد: ' + email + '\nالهدف: ' + goal + '\n\nالرسالة:\n' + message;
+
+  window.location.href = 'mailto:contact@dungeon18.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+</script>
+</body>
+</html>
